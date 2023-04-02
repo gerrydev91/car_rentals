@@ -2,6 +2,7 @@ package com.example.dao;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,12 +17,12 @@ public class CarDAOImpl implements CarDAO {
 
     @Override
     public List<Car> findAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession(); //H
+        Session session = HibernateUtil.getSessionFactory().openSession(); // H
         Query<Car> query = session.createQuery("from Car", Car.class);
         List<Car> cars = query.list();
         session.close();
         return cars;
-     
+
     }
 
     @Override
@@ -30,14 +31,12 @@ public class CarDAOImpl implements CarDAO {
         Car car = session.find(Car.class, plate);
         session.close();
         return car;
-        
 
-        
     }
 
     @Override
     public Car findById(Long id) {
-        
+
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
@@ -49,8 +48,19 @@ public class CarDAOImpl implements CarDAO {
 
     @Override
     public Car createCar(Car car) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createCar'");
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            session.save(car);
+            session.getTransaction().commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return car;
+
     }
 
     @Override
@@ -64,5 +74,5 @@ public class CarDAOImpl implements CarDAO {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
-    
+
 }

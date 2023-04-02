@@ -20,6 +20,18 @@ public  void setUp() {
     @Test
     public void testCreateCar() {
 
+        Car car = new Car();
+        car.setColor("red");
+        car.setLicensePlate("P-GHGH55");
+        car.setMake("Toyota");
+        car.setModel("Rav-4");
+        car.setStatus("Available");
+        car.setYear(2022l);
+
+        car = carDao.createCar(car);
+
+        
+
     }
 
     @Test

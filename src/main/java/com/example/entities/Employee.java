@@ -1,5 +1,7 @@
 package com.example.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
     @AttributeOverride(name = "phoneNumber", column = @Column(name = "phone_number")),
     @AttributeOverride(name = "email", column = @Column(name = "email"))
 })
-public class Employee extends Person {
+public class Employee extends Person  implements Serializable{
     
     @Column(name="salary")
     private Double salary;

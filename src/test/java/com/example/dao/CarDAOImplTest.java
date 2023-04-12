@@ -2,8 +2,8 @@ package com.example.dao;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.example.entities.Car;
 
@@ -11,7 +11,7 @@ public class CarDAOImplTest {
 
 CarDAO carDao; 
 
-@Before
+@BeforeEach
 public  void setUp() {
         carDao = new CarDAOImpl();
     }
@@ -20,15 +20,11 @@ public  void setUp() {
     @Test
     public void testCreateCar() {
 
-        Car car = new Car();
-        car.setColor("red");
-        car.setLicensePlate("P-GHGH55");
-        car.setMake("Toyota");
-        car.setModel("Rav-4");
-        car.setStatus("Available");
-        car.setYear(2022l);
+        Car car = new Car (null, "Red", "P-3B3B3B","Toyota" ,"Land Cruiser", "Available", 2022);
+        carDao = new CarDAOImpl();
+        carDao.createCar(car);
+        System.out.println(car.toString());
 
-        car = carDao.createCar(car);
 
         
 

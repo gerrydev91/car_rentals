@@ -15,7 +15,7 @@ public class Car implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id; 
+    private Integer id; 
 
     @Column(name="color")
     private String color; 
@@ -34,13 +34,13 @@ public class Car implements Serializable {
 
 
     @Column(name="year")
-    private Long year;
+    private int year;
 
     public Car() {
     }
 
 
-    public Car(int id, String color, String licensePlate, String make, String model, String status, Long year) {
+    public Car(Integer id, String color, String licensePlate, String make, String model, String status, int year) {
         this.id = id;
         this.color = color;
         this.licensePlate = licensePlate;
@@ -111,12 +111,12 @@ public class Car implements Serializable {
     }
 
 
-    public Long getYear() {
+    public int getYear() {
         return year;
     }
 
 
-    public void setYear(Long year) {
+    public void setYear(int year) {
         this.year = year;
     }
 

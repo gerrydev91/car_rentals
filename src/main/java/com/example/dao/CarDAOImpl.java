@@ -3,9 +3,9 @@ package com.example.dao;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+//import javax.persistence.criteria.CriteriaBuilder;
+//import javax.persistence.criteria.CriteriaQuery;
+//import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -50,6 +50,13 @@ public class CarDAOImpl implements CarDAO {
     public Car createCar(Car car) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+
+        if (session == null){
+
+           System.out.println("The session is null"); 
+
+        }
+        
         try {
             session.beginTransaction();
             session.save(car);

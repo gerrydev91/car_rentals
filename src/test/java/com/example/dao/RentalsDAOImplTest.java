@@ -1,6 +1,7 @@
 package com.example.dao;
+import org.junit.jupiter.api.BeforeEach;
 
-import org.junit.Before;
+
 import org.junit.Test;
 
 public class RentalsDAOImplTest {
@@ -9,19 +10,15 @@ public class RentalsDAOImplTest {
 
        RentalsDAO rentalsDAO;
         
-        @Before
+        @BeforeEach
         public  void setUp() {
                 rentalsDAO = new RentalsDAOImpl();
             }
 
-    @Test
-    public void create() {
-        
+    
 
 
 
-
-    }
     @Test
     public void testFindAll() {
 

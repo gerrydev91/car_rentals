@@ -22,8 +22,36 @@ public class Employee extends Person  implements Serializable{
     
     @Column(name="salary")
     private Double salary;
+
     @Column(name="job_title")
     private String jobTitle;
+
+
+    public Double getSalary() {
+        return salary;
+    }
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+    public String getJobTitle() {
+        return jobTitle;
+    }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public Employee(){}
+    
+
+    
+    public Employee(Long id, String email, String firstName, String lastName, String phoneNumber, Double salary,
+            String jobTitle) {
+        super(id, email, firstName, lastName, phoneNumber);
+        this.salary = salary;
+        this.jobTitle = jobTitle;
+    }
+
+    
 
 
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.entities.Employee;
 
-public interface EmployeeDao {
+public interface EmployeeDAO {
 
     List<Employee> findAll();
 

@@ -2,7 +2,14 @@ package com.example.dao;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+import javax.persistence.criteria.*;
+
+
+import org.hibernate.Session;
+
 import com.example.entities.Employee;
+import com.example.util.HibernateUtil;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
 
@@ -14,20 +21,63 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Employee employee = session.find(Employee.class, id);
+        session.close();
+
+        return employee;
     }
 
     @Override
     public List<Employee> findByLastName(String lastName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByLastName'");
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+
+        CriteriaQuery<Employee> criteria = builder.createQuery(Employee.class);
+
+        Root<Employee> root = criteria.from(Employee.class);
+
+        Predicate filter = builder.like(root.get("lastName").as
+        (String.class), "%" + lastName + "%");
+        
+        criteria.select(root).where(filter);
+
+        List<Employee> employees =  session.createQuery(criteria).list();
+
+        session.close();
+
+        return employees; 
+
+
+
+
     }
 
     @Override
-    public Employee create(Employee employee) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+    public Employee createEmployee(Employee employee) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        if (session == null){
+
+           System.out.println("The session is null"); 
+
+        }
+        
+        try {
+            session.beginTransaction();
+            session.save(employee);
+            session.getTransaction().commit();
+        } catch (PersistenceException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return employee;
+
     }
 
     @Override
@@ -38,8 +88,28 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public boolean deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            Employee employee = this.findById(id);
+            session.delete(employee);
+
+            session.getTransaction().commit();
+
+        } catch(PersistenceException e){
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return false;
+
+        }finally{
+            session.close();
+        }
+        
+        return true;
     }
     
 }

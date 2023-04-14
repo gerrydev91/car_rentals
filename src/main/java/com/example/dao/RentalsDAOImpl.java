@@ -8,39 +8,63 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
-import com.example.entities.Rentals;
+import com.example.entities.Rental;
 import com.example.util.HibernateUtil;
 
 public class RentalsDAOImpl implements RentalsDAO{
 
     @Override
-    public List<Rentals> findAll() {
+    public List<Rental> findAll() {
         Session session = HibernateUtil.getSessionFactory().openSession(); //H
-        Query<Rentals> query = session.createQuery("from Car", Rentals.class);
-        List<Rentals> rentals = query.list();
+        Query<Rental> query = session.createQuery("from Car", Rental.class);
+        List<Rental> rentals = query.list();
         return rentals;
     }
 
     @Override
     public boolean deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+
+            Rental rental = this.findById(id);
+
+            session.delete(rental);
+
+            session.getTransaction().commit();
+        }catch (PersistenceException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+            return false;
+        }finally{
+            session.close();
+        }
+
+        return true;
     }
 
     @Override
-    public Rentals findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+    public Rental findById(Long id) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Rental rental = session.find(Rental.class, id);
+        session.close();
+
+        return rental;
+        
     }
 
     @Override
-    public Rentals update(Rentals rentals) {
+    public Rental update(Rental rentals) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
-    public Rentals create(Rentals rentals) {
+    public Rental create(Rental rentals) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 

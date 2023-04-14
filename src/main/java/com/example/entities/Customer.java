@@ -19,5 +19,16 @@ import javax.persistence.Table;
     @AttributeOverride(name = "email", column = @Column(name = "email"))
 })
 public class Customer extends  Person implements Serializable{
+
+    public Customer() {
+    }
+
+    public Customer(Long id, String email, String firstName, String lastName, String phoneNumber) {
+        super(id, email, firstName, lastName, phoneNumber);
+    }
+
+    
+
+    
     
 }

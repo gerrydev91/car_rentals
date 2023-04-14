@@ -13,7 +13,10 @@ public interface CustomerDAO {
     Customer findById(Long id);
 
 
-    List<Customer> findByLastName(String lastName); 
+    List<Customer> findByLastName(String lastName);
+    
+    
+    Customer createCustomer(Customer customer);
 
 
     Customer update(Customer customer); 

@@ -2,17 +2,17 @@ package com.example.dao;
 
 import java.util.List;
 
-import com.example.entities.Rentals;
+import com.example.entities.Rental;
 
 public interface RentalsDAO {
 
-    List<Rentals> findAll();
+    List<Rental> findAll();
 
     boolean deleteById(Long id);
 
-    Rentals findById(Long id);
+    Rental findById(Long id);
 
-    Rentals update(Rentals rentals);
+    Rental update(Rental rentals);
 
-    Rentals create (Rentals rentals); 
+    Rental create (Rental rentals); 
 }

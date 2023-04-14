@@ -12,7 +12,7 @@ public interface EmployeeDAO {
 
     List<Employee> findByLastName(String lastName);
 
-    Employee create (Employee employee);
+    Employee createEmployee (Employee employee);
 
     Employee update(Employee employee);
 

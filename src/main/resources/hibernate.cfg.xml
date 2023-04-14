@@ -22,6 +22,8 @@
     <!-- entities -->
     <mapping class="com.example.entities.Employee"/>
     <mapping class="com.example.entities.Car"/>
+    <mapping class="com.example.entities.Customer"/>
+    <mapping class="com.example.entities.Rental"/>
 
   </session-factory>
 </hibernate-configuration>

@@ -7,15 +7,15 @@ import javax.persistence.PersistenceException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-
+import com.example.entities.Car;
 import com.example.entities.Rental;
 import com.example.util.HibernateUtil;
 
-public class RentalsDAOImpl implements RentalsDAO{
+public class RentalsDAOImpl implements RentalsDAO {
 
     @Override
     public List<Rental> findAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession(); //H
+        Session session = HibernateUtil.getSessionFactory().openSession(); // H
         Query<Rental> query = session.createQuery("from Car", Rental.class);
         List<Rental> rentals = query.list();
         return rentals;
@@ -23,7 +23,7 @@ public class RentalsDAOImpl implements RentalsDAO{
 
     @Override
     public boolean deleteById(Long id) {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
@@ -34,11 +34,11 @@ public class RentalsDAOImpl implements RentalsDAO{
             session.delete(rental);
 
             session.getTransaction().commit();
-        }catch (PersistenceException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
             session.getTransaction().rollback();
             return false;
-        }finally{
+        } finally {
             session.close();
         }
 
@@ -54,13 +54,7 @@ public class RentalsDAOImpl implements RentalsDAO{
         session.close();
 
         return rental;
-        
-    }
 
-    @Override
-    public Rental update(Rental rentals) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 
     @Override
@@ -72,13 +66,38 @@ public class RentalsDAOImpl implements RentalsDAO{
             session.beginTransaction();
             session.save(rentals);
             session.getTransaction().commit();
-        }catch (PersistenceException e) {
+        } catch (PersistenceException e) {
             e.printStackTrace();
             session.getTransaction().rollback();
         }
         session.close();
         return rentals;
-        
+
     }
+
     
+
+    @Override
+    public Rental updateRentalCar(Rental rental) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.beginTransaction();
+            session.update(rental);
+            session.getTransaction().commit();
+        }catch (PersistenceException e) {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return rental;
+    }
+
+    @Override
+    public Rental updateRentalDates(Rental rentals) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateRentalDates'");
+    }
+
 }

@@ -12,7 +12,10 @@ public interface RentalsDAO {
 
     Rental findById(Long id);
 
-    Rental update(Rental rentals);
+    Rental updateRentalDates(Rental rentals);
 
     Rental create (Rental rentals); 
+
+
+    Rental updateRentalCar(Rental rentals);
 }

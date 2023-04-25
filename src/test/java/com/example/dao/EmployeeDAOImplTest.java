@@ -1,9 +1,10 @@
 package com.example.dao;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.example.entities.Employee;
-import com.example.dao.EmployeeDAO;
 
 public class EmployeeDAOImplTest {
 
@@ -20,10 +21,14 @@ public class EmployeeDAOImplTest {
     @Test
     void testCreateEmployee() {
 
-        Employee employee = new Employee(null, "Gerry9191test2@gmail.com", "Laura Fernanda", 
+        Employee employee = new Employee(null, "Gerry9191test@gmail.com", "Laura Fernanda", 
         "Rivas Romero", "898989", 3000.0d, "Cloud Engineer");
 
+        Employee employee2 = new Employee(null, "Gerry9191test1@gmail.com", "Beto Gerry", 
+        "Rivas M", "898989", 3000.0d, "Cloud Engineer");
+
         employee = employeeDao.createEmployee(employee);
+        employee2 = employeeDao.createEmployee(employee2);
 
     }
 
@@ -34,6 +39,9 @@ public class EmployeeDAOImplTest {
 
     @Test
     void testFindAll() {
+
+        List<Employee> employees = employeeDao.findAll();
+        System.out.println(employees);
 
     }
 

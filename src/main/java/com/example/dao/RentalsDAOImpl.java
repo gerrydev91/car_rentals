@@ -6,8 +6,6 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
-import com.example.entities.Car;
 import com.example.entities.Rental;
 import com.example.util.HibernateUtil;
 

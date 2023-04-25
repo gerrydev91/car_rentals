@@ -7,6 +7,7 @@ import javax.persistence.criteria.*;
 
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import com.example.entities.Employee;
 import com.example.util.HibernateUtil;
@@ -15,8 +16,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+       
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query<Employee> query = session.createQuery("from Employee", Employee.class);
+        List<Employee> employees = query.list();
+        return employees;
+
     }
 
     @Override
